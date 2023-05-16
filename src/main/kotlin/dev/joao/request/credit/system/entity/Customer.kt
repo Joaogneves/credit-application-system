@@ -19,7 +19,7 @@ data class Customer(
         var credits: List<Credit> = mutableListOf(),
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long? = null,
+        val id: Long? = null,
 ){
 
 }
