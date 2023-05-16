@@ -1,6 +1,7 @@
 package dev.joao.request.credit.system.services.Impl
 
 import dev.joao.request.credit.system.entity.Customer
+import dev.joao.request.credit.system.exceptions.BusinessException
 import dev.joao.request.credit.system.repositories.CustomerRepository
 import dev.joao.request.credit.system.services.ICustomerService
 import org.springframework.stereotype.Service
@@ -15,11 +16,13 @@ class CustomerService(
 
     override fun findById(id: Long): Customer {
         return this.rep.findById(id).orElseThrow {
-            throw RuntimeException("Id $id not found")
+            throw BusinessException("Id $id not found")
         }
     }
 
     override fun delete(id: Long) {
+        val customer: Customer = this.findById(id)
+        this.rep.delete(customer)
         this.rep.deleteById(id)
     }
 }
